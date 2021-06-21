@@ -19,12 +19,15 @@ def initCenterCluster(data,k):
     rand = np.random.randint(0,k,1)
     center[rand] += d
     labelCount[rand] += 1 
-    print(rand,"init:",d)
+    #print(rand,"init:",d)
 
   for (c,i) in zip(center,range(k)):
     c /= labelCount[i]
+    #c*=1.1 #すぐ計算するためのもの．1.0出ないと，きれいに分散しない．なぜ．
+    c = ((c-0.5)*2)+0.5 #上だと，点が左上に移動するから，点を0,0に移して倍率して戻す．だめでした
   print("center:\n",center)
   
+
   return center
 
 
@@ -32,12 +35,16 @@ def main():
   # データを読み込む
   data = np.loadtxt("data2.csv", delimiter=",")
 
-   #\my code\
-  k = 10 #重心の数
-  color = ['red','green','blue','yellow','orange','purple','pink',''] #色の配列
-  prop_cycle = plt.rcParams['axes.prop_cycle']
-  colors = prop_cycle.by_key()['color']
-  meaninglessCounter = 0
+  #\my code\
+  k = 20 #重心の数
+  ##いろ
+  cmap_name = 'tab20'
+  cm = plt.cm.get_cmap(cmap_name)
+  colors = []
+  for rgb in cm.colors:
+    print(type(rgb),rgb)
+    colors.append(list(rgb))
+    print("a")
 
   ##重心の初期
   center = initCenterCluster(data,k) #クラスタの重心
@@ -55,7 +62,7 @@ def main():
     for i,d in enumerate(data):
       dist = [distance(d,i) for i in center] #データの点と重心を比較
       label.append(dist.index(min(dist))) #距離が小さい方のインデクスをラベル付け
-      print(i + 1,'dist:',dist.index(min(dist)),dist,d)
+      #print(i + 1,'dist:',dist.index(min(dist)),dist,d)
 
     center = np.zeros((k,2)) #新しいクラスタの重心
   
@@ -67,29 +74,24 @@ def main():
     for (c,i) in zip(center,range(k)):
       c /= labelCount[i]
 
-    print('center:\n',center,labelCount)
-    print("----------------")
+    #クラスタが規定数なかったらやり直し
+    if(np.sum(np.isnan(center))):
+      center=initCenterCluster(data,k)
+      continue
 
-    break
-    meaninglessCounter+=1
+    print('center:\n',center,labelCount,"\n-------------")
+
+    #break
 
   for (d,l) in zip(data, label):
     #plt.scatter(d[0],d[1],label=l,s=10,alpha=0.2)
-    plt.scatter(d[0],d[1],c=colors[l],s=10,alpha=0.25)
+    plt.scatter(d[0],d[1],c=[colors[l]],s=10,alpha=0.25)
 
   for i,c in enumerate(center):
     #plt.scatter(c[0],c[1],label=l,marker='x',s=10)
-    plt.scatter(c[0],c[1],c=colors[i],marker='x',s=25)
+    plt.scatter(c[0],c[1],c=[colors[i]],marker='x',s=25)
 
-  fcx = firstC[:,0:1]
-  fcy = firstC[:,1:2]
-  print(firstC)
-  #print(fcx)
-  #print(fcy)
-  plt.scatter(fcx,fcy,c='black',marker='+',alpha=0.5)
   plt.show()
-
-  print("Rope Count :",meaninglessCounter)
 
 if __name__=="__main__":
   main()
