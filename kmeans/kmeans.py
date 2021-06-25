@@ -23,10 +23,8 @@ def initCenterCluster(data,k):
 
   for (c,i) in zip(center,range(k)):
     c /= labelCount[i]
-    #c*=1.1 #すぐ計算するためのもの．1.0出ないと，きれいに分散しない．なぜ．
     c = ((c-0.5)*2)+0.5 #上だと，点が左上に移動するから，点を0,0に移して倍率して戻す．だめでした
-  print("center:\n",center)
-  
+  #print("center:\n",center)
 
   return center
 
@@ -42,9 +40,7 @@ def main():
   cm = plt.cm.get_cmap(cmap_name)
   colors = []
   for rgb in cm.colors:
-    print(type(rgb),rgb)
     colors.append(list(rgb))
-    print("a")
 
   ##重心の初期
   center = initCenterCluster(data,k) #クラスタの重心
@@ -79,7 +75,7 @@ def main():
       center=initCenterCluster(data,k)
       continue
 
-    print('center:\n',center,labelCount,"\n-------------")
+    #print('center:\n',center,labelCount,"\n-------------")
 
     #break
 
