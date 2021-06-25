@@ -19,12 +19,10 @@ def initCenterCluster(data,k):
     rand = np.random.randint(0,k,1)
     center[rand] += d
     labelCount[rand] += 1 
-    #print(rand,"init:",d)
 
   for (c,i) in zip(center,range(k)):
     c /= labelCount[i]
-    c = ((c-0.5)*2)+0.5 #上だと，点が左上に移動するから，点を0,0に移して倍率して戻す．だめでした
-  #print("center:\n",center)
+    #c = ((c - 0.5) * 2) + 0.5 #上だと，点が左上に移動するから，点を0,0に移して倍率して戻す．だめでした
 
   return center
 
@@ -34,7 +32,7 @@ def main():
   data = np.loadtxt("data2.csv", delimiter=",")
 
   #\my code\
-  k = 20 #重心の数
+  k = 4 #重心の数
   ##いろ
   cmap_name = 'tab20'
   cm = plt.cm.get_cmap(cmap_name)
@@ -47,18 +45,14 @@ def main():
   before = np.zeros((k,2)) #前回のクラスタの重心
   labelCount = np.zeros(k) #同じラベルの総和
 
-  ##初めの重心を決める
-  firstC = center
-
   ## kmeansの核
   while(not np.all(center == before)):
     label = [] #各データのラベル
-    before = center #重心の保存
+    before = np.copy(center) #重心の保存
     labelCount = np.zeros(k) #同じラベルの総和
     for i,d in enumerate(data):
       dist = [distance(d,i) for i in center] #データの点と重心を比較
       label.append(dist.index(min(dist))) #距離が小さい方のインデクスをラベル付け
-      #print(i + 1,'dist:',dist.index(min(dist)),dist,d)
 
     center = np.zeros((k,2)) #新しいクラスタの重心
   
@@ -68,26 +62,24 @@ def main():
       labelCount[label[i]]+=1
  
     for (c,i) in zip(center,range(k)):
+      if(labelCount[i]==0):
+        c = before[i]/1
+        continue
       c /= labelCount[i]
 
     #クラスタが規定数なかったらやり直し
     if(np.sum(np.isnan(center))):
-      center=initCenterCluster(data,k)
+      center = initCenterCluster(data,k)
       continue
 
-    #print('center:\n',center,labelCount,"\n-------------")
-
-    #break
-
+  #グラフ表示
   for (d,l) in zip(data, label):
-    #plt.scatter(d[0],d[1],label=l,s=10,alpha=0.2)
     plt.scatter(d[0],d[1],c=[colors[l]],s=10,alpha=0.25)
 
   for i,c in enumerate(center):
-    #plt.scatter(c[0],c[1],label=l,marker='x',s=10)
     plt.scatter(c[0],c[1],c=[colors[i]],marker='x',s=25)
 
   plt.show()
 
-if __name__=="__main__":
+if __name__ == "__main__":
   main()
