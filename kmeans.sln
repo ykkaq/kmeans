@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "kmeans", "kmeans\kmeans.pyproj", "{29982901-AE99-409C-A10D-0E09C0A9249F}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "kadai3", "kadai3\kadai3.pyproj", "{8D359FC3-436F-40C8-8474-6A1242BD9AC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{29982901-AE99-409C-A10D-0E09C0A9249F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29982901-AE99-409C-A10D-0E09C0A9249F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D359FC3-436F-40C8-8474-6A1242BD9AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D359FC3-436F-40C8-8474-6A1242BD9AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

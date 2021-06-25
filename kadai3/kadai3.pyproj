@@ -2,17 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>29982901-ae99-409c-a10d-0e09c0a9249f</ProjectGuid>
+    <ProjectGuid>8d359fc3-436f-40c8-8474-6a1242bd9ac8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>kmeans.py</StartupFile>
+    <StartupFile>kadai3.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>kmeans</Name>
-    <RootNamespace>kmeans</RootNamespace>
-    <InterpreterId>Global|PythonCore|3.9</InterpreterId>
-    <IsWindowsApplication>False</IsWindowsApplication>
+    <Name>kadai3</Name>
+    <RootNamespace>kadai3</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,11 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kmeans.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|3.7" />
-    <InterpreterReference Include="Global|PythonCore|3.9" />
+    <Compile Include="kadai3.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
